@@ -29,6 +29,8 @@ def keyboard(message):
             bot.send_message(message.chat.id, 'start, hi, Available commands, Done')
         elif message.text == 'Done':
             bot.send_message(message.chat.id, 'Ok, got it. Have a nice day')
+        else:
+            bot.send_message(message.chat.id, 'Sorry, I dont understand you. Try again later')
 
 bot.polling()
 
