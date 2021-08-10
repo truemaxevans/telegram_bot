@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 import telebot
 from telebot import types
-import random
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
@@ -16,12 +15,20 @@ def send_welcome(message):
 #keyboard
 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item1 = types.KeyboardButton('Available commands')
-item2 = types.KeyboardButton('Exit')
+item2 = types.KeyboardButton('Done')
 markup.add(item1, item2)
 @bot.message_handler(commands=['help', 'gethelp'])
 
 def help(message):
     bot.send_message(message.chat.id, "How I can help you?", reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def keyboard(message):
+    if message.chat.type == 'private':
+        if message.text == 'Available commands':
+            bot.send_message(message.chat.id, 'start, hi, Available commands, Done')
+        elif message.text == 'Done':
+            bot.send_message(message.chat.id, 'Ok, got it. Have a nice day')
 
 bot.polling()
 
